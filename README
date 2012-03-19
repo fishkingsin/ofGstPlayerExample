@@ -1,4 +1,49 @@
 
+dependencies:
+http://code.google.com/p/ossbuild/downloads/detail?name=GStreamer-WinBuilds-GPL-x86.msi&can=2&q=
+http://code.google.com/p/ossbuild/downloads/detail?name=GStreamer-WinBuilds-SDK-GPL-x86.msi&can=2&q=
+
+install the .msi below
+
+check the system environment:
+Variable name: OSSBUILD_GSTREAMER_DIR
+Variable value : C:\Program Files (x86)\OSSBuild\GStreamer\v0.10.6\
+Variable name: OSSBUILD_GSTREAMER_SDK_DIR
+Variable value : C:\Program Files (x86)\OSSBuild\GStreamer\v0.10.6\sdk\
+
 ref:
 http://forum.openframeworks.cc/index.php/topic,3610.30.html
+in ofGstVideoPlayer.cpp
+You just have to add an extra "/" to the file path (Why is good question !!!!) in ofGstVideoPlayer.
+So basically in ofGstVideoPlayer.cpp in the load movie function just replace :
+Code:
+view plaincopy to clipboardprint?
+name            = "file://"+ofToDataPath(name,true);  
+by :
+Code:
+view plaincopy to clipboardprint?
+name            = "file:///"+ofToDataPath(name,true);  
+
+ref:
 https://openshapa.org/fogbugz/default.asp?W140.
+Setting up GStreamer C DevEnv on Windows
+
+Install GStreamer Windows SDK from http://code.google.com/p/ossbuild/
+Once installed, create GST_SDK environment variable with its value pointing to the root of the SDK, eg. C:\Program Files\OSSBuild\GStreamer\v0.10.6\sdk
+Install Visual Studio 2010 (C++, Express).
+Create a new VS C++ empty project (no pre-compiled headers).
+Edit the project properties (right click on the project in the solution explorer):
+Configuration Properties -> General
+Change 'Character Set' to 'Use Multi-Byte Character Set'
+Configuration Properties -> VC++ Directores
+Edit 'Include Directories'
+Add $(GST_SDK)\include\
+Add $(GST_SDK)\include\<every subdirectory>
+Edit 'Library Directories'
+Add $(GST_SDK)\lib\
+Configuration Properties -> Linker -> General
+Edit 'Additional Library Directories'
+Add $(GST_SDK)\lib\
+Configuration Properties -> Linker -> Input
+Edit 'Additional Dependencies'
+Add the name of every lib file in the %GST_SDK%\lib directory.
