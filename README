@@ -17,11 +17,9 @@ in ofGstVideoPlayer.cpp
 You just have to add an extra "/" to the file path (Why is good question !!!!) in ofGstVideoPlayer.
 So basically in ofGstVideoPlayer.cpp in the load movie function just replace :
 Code:
-view plaincopy to clipboardprint?
 name            = "file://"+ofToDataPath(name,true);  
 by :
 Code:
-view plaincopy to clipboardprint?
 name            = "file:///"+ofToDataPath(name,true);  
 
 ref:
